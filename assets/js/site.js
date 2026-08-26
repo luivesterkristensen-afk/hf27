@@ -93,6 +93,15 @@ function bygForside(){
     packsButton.id = "forsidePacksButton"
     collectionButton.id = "forsideCollectionButton"
 
+    // giver knapper event
+    packsButton.addEventListener("click", () => {
+        bygPackView()
+    })
+
+    collectionButton.addEventListener("click", () =>{
+        bygMyCollectionView()
+    })
+
     // GIV DEM INDHOLD
     backgroundImg.src = "Indsæt billede!!!!"
     h1.innerText = "HF27"
@@ -115,9 +124,11 @@ function bygPackView(){
     app.innerHTML = ""
     
     // LAV ELEMENTERNE
+    const PackExitKnap = document.createElement("button")
     const coinSpan = document.createElement("span")
     const coinsDisplay = document.createElement("p")
     const coinsDisplayValue = document.createElement("p")
+    
     // GRID SEKTION MED ALLE PAKKERNE
     const packSection = document.createElement("section")
     // SØLV PAKKEN
@@ -131,6 +142,11 @@ function bygPackView(){
     const specialPackImg = document.createElement("img")
     /* Note: Husk at lave eventlisteners til pakkerne så de kan købes. */
 
+    //Byg en eventlistener til knapper
+    PackExitKnap.addEventListener("click", () => {
+        bygForside()
+    })
+
     // Byg en eventlistener der kører en købfunktion for hver pack
     silverPack.addEventListener("click", silverPackPurchase)
     goldPack.addEventListener("click", goldPackPurchase)
@@ -141,10 +157,12 @@ function bygPackView(){
     // GIV ELEMENTERNE EN ID
     coinSpan.id = "coinSpan"
     packSection.id = "packSection"
+    PackExitKnap.id = "PackExitkanp" 
     
     // GIV DEM INDHOLD
     coinsDisplay.innerText = "Coins:"
     coinsDisplayValue.innerText = myCoins
+    PackExitKnap.innerText = "Forside"
     // GIV PAKKERNE ET BILLEDE
     silverPackImg.src = "https://picsum.photos/200/300?grayscale"
     goldPackImg.src = "GIV MIG EN SRC"
@@ -169,6 +187,9 @@ function bygPackView(){
     specialPack.appendChild(specialPackImg)
     
     app.appendChild(packSection)
+
+    //append knapper
+    app.appendChild(PackExitKnap)
 }
 
 function bygMyCollectionView(){
@@ -179,6 +200,7 @@ function bygMyCollectionView(){
     app.innerHTML = ""
     
     // LAV ELEMENTERNE
+    const CollectionExitKnap = document.createElement("button")
     const coinSpan = document.createElement("span")
     const coinsDisplay = document.createElement("p")
     const coinsDisplayValue = document.createElement("p")
@@ -191,18 +213,26 @@ function bygMyCollectionView(){
     
     /* husk lige at lave sådan at kortene bliver sendt her ind i collectionSection */
 
+    //Byg Event Til knapper
+    CollectionExitKnap.addEventListener("click", () => {
+        bygForside()
+
+    })
+
     
 
     // GIV ELEMENTERNE EN ID
     coinSpan.id = "coinSpan"
     collectionSection.id = "collectionSection"
+    CollectionExitKnap.id = "CollectionExitKnap"
     
     // GIV DEM INDHOLD
     coinsDisplay.innerText = "Coins:"
     coinsDisplayValue.innerText = myCoins;
+    CollectionExitKnap.innerText = "Forside"
 
     // GIV SRCS TIL PLACEHOLDERS
-    emptyCardPlaceholderImg.src = "GIV MIG EN SRC!!!"
+    emptyCardPlaceholderImg.src = "assets/img/mysterie.svg"
 
 
     //FÅ DEM LAVET I HTML
@@ -219,6 +249,7 @@ function bygMyCollectionView(){
     
     
     app.appendChild(collectionSection)
+    app.appendChild(CollectionExitKnap)
 }
 
 function bygPackOpeningView(CardDrafted){
@@ -337,4 +368,4 @@ function saveCard(CardDrafted){
 /* KØR SIDEN - Under dette stykke skal du køre funktionerne der er nødvendige for siden kører.
 
 */
-bygPackView()
+bygForside()

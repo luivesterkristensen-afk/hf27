@@ -199,7 +199,7 @@ function bygMyCollectionView(){
     
     // GIV DEM INDHOLD
     coinsDisplay.innerText = "Coins:"
-    coinsDisplayValue.innerText = "0"
+    coinsDisplayValue.innerText = myCoins;
 
     // GIV SRCS TIL PLACEHOLDERS
     emptyCardPlaceholderImg.src = "GIV MIG EN SRC!!!"
@@ -273,6 +273,7 @@ function silverPackPurchase(CardDrafted){
         let possibleCards = silverPackCards.filter(card => card.rarity === rarity)
         let randomCard = Math.floor(Math.random() * possibleCards.length)
         let CardDrafted = possibleCards[randomCard]
+        saveCard(CardDrafted)
         bygPackOpeningView(CardDrafted)
     }  else {
         alert("ikke nok monetos")
@@ -288,6 +289,7 @@ function goldPackPurchase(CardDrafted){
         let possibleCards = silverPackCards.filter(card => card.rarity === rarity)
         let randomCard = Math.floor(Math.random() * possibleCards.length)
         let CardDrafted = possibleCards[randomCard]
+        saveCard(CardDrafted)
         bygPackOpeningView(CardDrafted)
     } else {
         alert("ikke nok monetos")
@@ -303,10 +305,21 @@ function specialPackPurchase(CardDrafted){
         let possibleCards = silverPackCards.filter(card => card.rarity === rarity)
         let randomCard = Math.floor(Math.random() * possibleCards.length)
         let CardDrafted = possibleCards[randomCard]
+        saveCard(CardDrafted)
         bygPackOpeningView(CardDrafted)
     }  else {
         alert("ikke nok monetos")
     }
+}
+
+function saveCard(CardDrafted){
+    
+    MyCollectionDataBase.push(CardDrafted)
+
+    localStorage.setItem(
+        "Collection",
+        JSON.stringify(MyCollectionDataBase)
+    )
 }
 //#endregion
 

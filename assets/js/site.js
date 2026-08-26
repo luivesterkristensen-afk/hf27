@@ -19,13 +19,35 @@ let silverPackCards = [
     {
         name: "Atal",
         rarity: "Normal",
-        /* STATS: AI: 90 - SPEED: 75 - HTML: 90 - CSS: 73 - JS: 65 - OVERALL: 72 */
+        img: "assets/img/ataltemp.png"
+        /* STATS: AI: 77 - SPEED: 75 - HTML: 72 - CSS: 73 - JS: 65 - OVERALL: 62 */
     }
 
     ,{
         name: "Mikkel",
         rarity: "Rare",
-        img: "GIV MIG EN SRC!!"
+        img: "assets/img/mikkeltemp.png"
+        /* STATS: AI: 70 - SPEED: 88 - HTML: 90 - CSS: 73 - JS: 77 - OVERALL: 72 */
+    },
+
+    {
+        name: "Mingus",
+        rarity: "Ultra Rare",
+        img: "assets/img/mingustemp.png"
+        /* STATS: AI: 65 - SPEED: 68 - HTML: 92 - CSS: 80 - JS: 67 - OVERALL:  */
+    },
+
+    {
+        name: "Vitalli",
+        rarity: "Legendary",
+        img: "assets/img/vitallitemp.png"
+        /* STATS: AI: 70 - SPEED: 88 - HTML: 90 - CSS: 73 - JS: 77 - OVERALL: 80 */
+    },
+
+    {
+        name: "Kasper",
+        rarity: "Mythic",
+        img: "assets/img/kaspertemp.png"
         /* STATS: AI: 70 - SPEED: 88 - HTML: 90 - CSS: 73 - JS: 77 - OVERALL: 80 */
     }
 ]
@@ -190,7 +212,7 @@ function bygMyCollectionView(){
     app.appendChild(collectionSection)
 }
 
-function bygPackOpeningView(){
+function bygPackOpeningView(CardDrafted){
 /* Det her er en funktion der bygger pack opening Viewet.
     Kald denne funktion for at bygge PackOpening view */
     app.innerHTML = ""
@@ -198,8 +220,9 @@ function bygPackOpeningView(){
     // Lav elementerne
     const openingCard = document.createElement("figure")
     const openingCardImg = document.createElement("img")
+
     
-    // openingCardImg.src = CardDrafted
+    openingCardImg.src = CardDrafted.img
 
     openingCard.appendChild(openingCardImg)
     app.appendChild(openingCard)
@@ -222,27 +245,49 @@ function bygPackOpeningView(){
 //#region Controller
 // ALT DER KAN KONTROLLERES SKAL LAVES HER DET KAN FX VÆRE CALLBACKS.
 
-function silverPackPurchase(){
-    if (myCoins > 100) {
+function silverPackPurchase(CardDrafted){
+    if (myCoins >= 100) {
         myCoins -= 100
         console.log("købt silver pack")
-        silverPackCards.map(Math.random())
-        bygPackOpeningView()
+        let randomNumber = Math.random() * 100
+        let rarity = randomNumber < 50 ? "Normal" : randomNumber < 75 ? "Rare" : randomNumber < 97 ? "Ultra Rare" : randomNumber < 99 ? "Legendary" : "Mythic"
+        let possibleCards = silverPackCards.filter(card => card.rarity === rarity)
+        let randomCard = Math.floor(Math.random() * possibleCards.length)
+        let CardDrafted = possibleCards[randomCard]
+        bygPackOpeningView(CardDrafted)
+    }  else {
+        alert("ikke nok monetos")
     }
-    
-    
-
-    
 }
 
-function goldPackPurchase(){
-    console.log("købt gold pack")
-    bygPackOpeningView()
+function goldPackPurchase(CardDrafted){
+    if (myCoins >= 300) {
+        myCoins -= 300
+        console.log("købt gold pack")
+        let randomNumber = Math.random() * 100
+        let rarity = randomNumber < 50 ? "Normal" : randomNumber < 60 ? "Rare" : randomNumber < 92 ? "Ultra Rare" : randomNumber < 97 ? "Legendary" : "Mythic"
+        let possibleCards = silverPackCards.filter(card => card.rarity === rarity)
+        let randomCard = Math.floor(Math.random() * possibleCards.length)
+        let CardDrafted = possibleCards[randomCard]
+        bygPackOpeningView(CardDrafted)
+    } else {
+        alert("ikke nok monetos")
+    }
 }
 
-function specialPackPurchase(){
-    console.log("købt special pack")
-    bygPackOpeningView()
+function specialPackPurchase(CardDrafted){
+    if (myCoins >= 500) {
+        myCoins -= 500
+        console.log("købt special pack")
+        let randomNumber = Math.random() * 100
+        let rarity = randomNumber < 30 ? "Normal" : randomNumber < 50 ? "Rare" : randomNumber < 70 ? "Ultra Rare" : randomNumber < 88 ? "Legendary" : "Mythic"
+        let possibleCards = silverPackCards.filter(card => card.rarity === rarity)
+        let randomCard = Math.floor(Math.random() * possibleCards.length)
+        let CardDrafted = possibleCards[randomCard]
+        bygPackOpeningView(CardDrafted)
+    }  else {
+        alert("ikke nok monetos")
+    }
 }
 
 //#endregion

@@ -19,38 +19,47 @@ let silverPackCards = [
     {
         name: "Atal",
         rarity: "Normal",
-        img: "assets/img/ataltemp.png"
+        img: "assets/img/ataltemp.png",
+        val: "50"
         /* STATS: AI: 77 - SPEED: 75 - HTML: 72 - CSS: 73 - JS: 65 - OVERALL: 62 */
     }
 
     ,{
         name: "Mikkel",
         rarity: "Rare",
-        img: "assets/img/mikkeltemp.png"
+        img: "assets/img/mikkeltemp.png",
+        val: "200"
         /* STATS: AI: 70 - SPEED: 88 - HTML: 90 - CSS: 73 - JS: 77 - OVERALL: 72 */
     },
 
     {
         name: "Mingus",
         rarity: "Ultra Rare",
-        img: "assets/img/mingustemp.png"
+        img: "assets/img/mingustemp.png",
+        val: "300"
         /* STATS: AI: 65 - SPEED: 68 - HTML: 92 - CSS: 80 - JS: 67 - OVERALL:  */
     },
 
     {
         name: "Vitalli",
         rarity: "Legendary",
-        img: "assets/img/vitallitemp.png"
+        img: "assets/img/vitallitemp.png",
+        val: "380"
         /* STATS: AI: 70 - SPEED: 88 - HTML: 90 - CSS: 73 - JS: 77 - OVERALL: 80 */
     },
 
     {
         name: "Kasper",
         rarity: "Mythic",
-        img: "assets/img/kaspertemp.png"
+        img: "assets/img/kaspertemp.png",
+        val: "600"
         /* STATS: AI: 70 - SPEED: 88 - HTML: 90 - CSS: 73 - JS: 77 - OVERALL: 80 */
     }
 ]
+
+let goldPackCards = []
+
+let specialPackCards = []
 
 
 
@@ -224,6 +233,10 @@ function bygPackOpeningView(CardDrafted){
     
     openingCardImg.src = CardDrafted.img
 
+    openingCard.addEventListener("click", ()=>{
+        bygPackView()
+    })
+
     openingCard.appendChild(openingCardImg)
     app.appendChild(openingCard)
     
@@ -245,6 +258,12 @@ function bygPackOpeningView(CardDrafted){
 //#region Controller
 // ALT DER KAN KONTROLLERES SKAL LAVES HER DET KAN FX VÆRE CALLBACKS.
 
+
+
+
+// PURCHASE FUNKTIONER SØRGER FOR AT MAN KAN KØBE PACKS OG VÆLGER ET RANDOM KORT
+
+//#region Purchase
 function silverPackPurchase(CardDrafted){
     if (myCoins >= 100) {
         myCoins -= 100
@@ -289,6 +308,16 @@ function specialPackPurchase(CardDrafted){
         alert("ikke nok monetos")
     }
 }
+//#endregion
+
+
+
+
+
+
+
+
+
 
 //#endregion
 

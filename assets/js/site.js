@@ -63,9 +63,6 @@ let specialPackCards = []
 
 
 
-
-
-
 //#endregion
 
 
@@ -83,13 +80,11 @@ function bygForside(){
     
     // LAV ELEMENTERNE
     const backgroundImg = document.createElement("img")
-    const h1 = document.createElement("h1")
     const packsButton = document.createElement("button")
     const collectionButton = document.createElement("button")
 
     // GIV ELEMENTERNE EN ID
     backgroundImg.id = "forsideBaggrund"
-    h1.id = "forsideh1"
     packsButton.id = "forsidePacksButton"
     collectionButton.id = "forsideCollectionButton"
 
@@ -104,13 +99,11 @@ function bygForside(){
 
     // GIV DEM INDHOLD
     backgroundImg.src = "Indsæt billede!!!!"
-    h1.innerText = "HF27"
     packsButton.innerText = "Packs"
     collectionButton.innerText = "My Collection"
 
     //FÅ DEM LAVET I HTML
     app.appendChild(backgroundImg)
-    app.appendChild(h1)
     app.appendChild(packsButton)
     app.appendChild(collectionButton)
 
@@ -119,7 +112,7 @@ function bygForside(){
 function bygPackView(){
     /* Det her er en funktion der bygger hele packview.
     Kald denne funktion for at bygge packview */
-    
+    readCoins()
     
     app.innerHTML = ""
     
@@ -195,7 +188,8 @@ function bygPackView(){
 function bygMyCollectionView(){
     /* Det her er en funktion der bygger hele My Collection Viewet.
     Kald denne funktion for at bygge My Collection view */
-    
+    readCollection()
+    readCoins()
     
     app.innerHTML = ""
     
@@ -210,6 +204,12 @@ function bygMyCollectionView(){
     // EMPTY CARD PLACEHOLDERS
     const emptyCardPlaceholder = document.createElement("figure")
     const emptyCardPlaceholderImg = document.createElement("img")
+
+    const emptyCardPlaceholder2 = document.createElement("figure")
+    const emptyCardPlaceholderImg2 = document.createElement("img")
+
+    const emptyCardPlaceholder3 = document.createElement("figure")
+    const emptyCardPlaceholderImg3 = document.createElement("img")
     
     /* husk lige at lave sådan at kortene bliver sendt her ind i collectionSection */
 
@@ -232,9 +232,25 @@ function bygMyCollectionView(){
     CollectionExitKnap.innerText = "Forside"
 
     // GIV SRCS TIL PLACEHOLDERS
-    emptyCardPlaceholderImg.src = "assets/img/mysterie.svg"
+if (MyCollectionDataBase.length > 0) {
+         MyCollectionDataBase.forEach((element)=>{
 
+        const Card = document.createElement("figure")
+        const CardImg = document.createElement("img")
 
+        CardImg.src = element.img;
+
+        Card.appendChild(CardImg)
+        collectionSection.appendChild(Card)
+    
+    }); 
+        } else {
+            emptyCardPlaceholderImg.src = "assets/img/Mysterie.svg"
+        }
+    
+    
+    
+    
     //FÅ DEM LAVET I HTML
     app.appendChild(coinSpan)
     // COIN SPAN
@@ -245,9 +261,8 @@ function bygMyCollectionView(){
     collectionSection.appendChild(emptyCardPlaceholder)
     emptyCardPlaceholder.appendChild(emptyCardPlaceholderImg)
 
-    // LAV FLERE PLACEHOLDERS
-    
-    
+
+
     app.appendChild(collectionSection)
     app.appendChild(CollectionExitKnap)
 }
@@ -277,12 +292,6 @@ function bygPackOpeningView(CardDrafted){
 
 
 
-
-
-
-
-
-
 //#endregion
 
 
@@ -298,6 +307,7 @@ function bygPackOpeningView(CardDrafted){
 function silverPackPurchase(CardDrafted){
     if (myCoins >= 100) {
         myCoins -= 100
+        saveCoins()
         console.log("købt silver pack")
         let randomNumber = Math.random() * 100
         let rarity = randomNumber < 50 ? "Normal" : randomNumber < 75 ? "Rare" : randomNumber < 97 ? "Ultra Rare" : randomNumber < 99 ? "Legendary" : "Mythic"
@@ -314,6 +324,7 @@ function silverPackPurchase(CardDrafted){
 function goldPackPurchase(CardDrafted){
     if (myCoins >= 300) {
         myCoins -= 300
+        saveCoins()
         console.log("købt gold pack")
         let randomNumber = Math.random() * 100
         let rarity = randomNumber < 50 ? "Normal" : randomNumber < 60 ? "Rare" : randomNumber < 92 ? "Ultra Rare" : randomNumber < 97 ? "Legendary" : "Mythic"
@@ -330,6 +341,7 @@ function goldPackPurchase(CardDrafted){
 function specialPackPurchase(CardDrafted){
     if (myCoins >= 500) {
         myCoins -= 500
+        saveCoins()
         console.log("købt special pack")
         let randomNumber = Math.random() * 100
         let rarity = randomNumber < 30 ? "Normal" : randomNumber < 50 ? "Rare" : randomNumber < 70 ? "Ultra Rare" : randomNumber < 88 ? "Legendary" : "Mythic"
@@ -343,6 +355,9 @@ function specialPackPurchase(CardDrafted){
     }
 }
 
+
+//#endregion
+
 function saveCard(CardDrafted){
     
     MyCollectionDataBase.push(CardDrafted)
@@ -352,15 +367,30 @@ function saveCard(CardDrafted){
         JSON.stringify(MyCollectionDataBase)
     )
 }
-//#endregion
 
+function readCollection(){
+     const myCollectionData = localStorage.getItem("Collection")
 
+    if (myCollectionData) {
+        MyCollectionDataBase = JSON.parse(myCollectionData)
+    }
+}
 
+function saveCoins(){
 
+    localStorage.setItem(
+        "Coins",
+        JSON.stringify(myCoins)
+    )
+}
 
+function readCoins(){
+    const myCoinData = localStorage.getItem("Coins")
 
-
-
+    if (myCoinData) {
+        myCoins = JSON.parse(myCoinData)
+    }
+}
 
 
 //#endregion

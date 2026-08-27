@@ -97,7 +97,7 @@ function bygForside(){
     })
 
     // GIV DEM INDHOLD
-    backgroundImg.src = "Indsæt billede!!!!"
+    backgroundImg.src = "assets/img/hf27background.png"
     packsButton.innerText = "Packs"
     collectionButton.innerText = "My Collection"
 
@@ -156,9 +156,9 @@ function bygPackView(){
     coinsDisplayValue.innerText = myCoins
     PackExitKnap.innerText = "Forside"
     // GIV PAKKERNE ET BILLEDE
-    silverPackImg.src = "https://picsum.photos/200/300?grayscale"
-    goldPackImg.src = "GIV MIG EN SRC"
-    specialPackImg.src = "GIV MIG EN SRC"
+    silverPackImg.src = "assets/img/silverpack.svg"
+    goldPackImg.src = "assets/img/goldpack.svg"
+    specialPackImg.src = "assets/img/specialpack.svg"
 
 
     //FÅ DEM LAVET I HTML

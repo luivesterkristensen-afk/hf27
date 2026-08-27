@@ -20,7 +20,7 @@ let silverPackCards = [
         name: "Atal",
         rarity: "Normal",
         img: "assets/img/ataltemp.png",
-        val: "50"
+        val: 50
         /* STATS: AI: 77 - SPEED: 75 - HTML: 72 - CSS: 73 - JS: 65 - OVERALL: 62 */
     }
 
@@ -28,7 +28,7 @@ let silverPackCards = [
         name: "Mikkel",
         rarity: "Rare",
         img: "assets/img/mikkeltemp.png",
-        val: "200"
+        val: 200
         /* STATS: AI: 70 - SPEED: 88 - HTML: 90 - CSS: 73 - JS: 77 - OVERALL: 72 */
     },
 
@@ -36,7 +36,7 @@ let silverPackCards = [
         name: "Mingus",
         rarity: "Ultra Rare",
         img: "assets/img/mingustemp.png",
-        val: "300"
+        val: 300
         /* STATS: AI: 65 - SPEED: 68 - HTML: 92 - CSS: 80 - JS: 67 - OVERALL:  */
     },
 
@@ -44,7 +44,7 @@ let silverPackCards = [
         name: "Vitalli",
         rarity: "Legendary",
         img: "assets/img/vitallitemp.png",
-        val: "380"
+        val: 380
         /* STATS: AI: 70 - SPEED: 88 - HTML: 90 - CSS: 73 - JS: 77 - OVERALL: 80 */
     },
 
@@ -52,7 +52,7 @@ let silverPackCards = [
         name: "Kasper",
         rarity: "Mythic",
         img: "assets/img/kaspertemp.png",
-        val: "600"
+        val: 600
         /* STATS: AI: 70 - SPEED: 88 - HTML: 90 - CSS: 73 - JS: 77 - OVERALL: 80 */
     }
 ]
@@ -60,7 +60,6 @@ let silverPackCards = [
 let goldPackCards = []
 
 let specialPackCards = []
-
 
 
 //#endregion
@@ -239,18 +238,23 @@ if (MyCollectionDataBase.length > 0) {
         const CardImg = document.createElement("img")
 
         CardImg.src = element.img;
+        let cardToView = element.img;
+        
+        Card.addEventListener("click", ()=>{
+            
+            bygCardView(element)
+        })
 
         Card.appendChild(CardImg)
         collectionSection.appendChild(Card)
-    
-    }); 
+            
+        
+    });
         } else {
             emptyCardPlaceholderImg.src = "assets/img/Mysterie.svg"
         }
-    
-    
-    
-    
+
+   
     //FÅ DEM LAVET I HTML
     app.appendChild(coinSpan)
     // COIN SPAN
@@ -288,7 +292,30 @@ function bygPackOpeningView(CardDrafted){
     
 }
 
+function bygCardView(cardToView){
 
+    app.innerHTML = ""
+
+    // Lav elementerne
+    const Card = document.createElement("figure")
+    const CardImg = document.createElement("img")
+    const sellButton = document.createElement("button")
+    
+    CardImg.src = cardToView.img;
+
+    // SÆLG KNAP
+    sellButton.innerText = "Sælg Kort"
+    sellButton.id = "sellBtn"
+    sellButton.addEventListener("click", ()=>{
+        sellCard(cardToView)
+    })
+
+    Card.appendChild(CardImg)
+    app.appendChild(Card)
+    app.appendChild(sellButton)
+
+
+}
 
 
 
@@ -297,9 +324,6 @@ function bygPackOpeningView(CardDrafted){
 
 //#region Controller
 // ALT DER KAN KONTROLLERES SKAL LAVES HER DET KAN FX VÆRE CALLBACKS.
-
-
-
 
 // PURCHASE FUNKTIONER SØRGER FOR AT MAN KAN KØBE PACKS OG VÆLGER ET RANDOM KORT
 
@@ -392,6 +416,27 @@ function readCoins(){
     }
 }
 
+function sellCard(cardToSell){
+    // finder den den skal slette
+    let index = MyCollectionDataBase.indexOf(cardToSell);
+    // GIR PENGE
+    myCoins += cardToSell.val;
+    
+    // sletter
+    MyCollectionDataBase.splice(index, 1);
+    saveCoins()
+
+    saveCollection()
+
+    bygMyCollectionView()
+}
+
+function saveCollection() {
+    localStorage.setItem(
+        "Collection",
+        JSON.stringify(MyCollectionDataBase)
+    );
+}
 
 //#endregion
 

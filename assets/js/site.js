@@ -5,7 +5,7 @@
 let MyCollectionDataBase = []
 let myCoins = 500
 
-let silverPackCards = [
+let Cards = [
 
 
    /* RARITIES:
@@ -57,9 +57,7 @@ let silverPackCards = [
     }
 ]
 
-let goldPackCards = []
 
-let specialPackCards = []
 
 
 //#endregion
@@ -78,14 +76,16 @@ function bygForside(){
     app.innerHTML = ""
     
     // LAV ELEMENTERNE
+    const forsideContainer = document.createElement("section")
     const backgroundImg = document.createElement("img")
+    const buttonDiv = document.createElement("div")
     const packsButton = document.createElement("button")
     const collectionButton = document.createElement("button")
 
     // GIV ELEMENTERNE EN ID
+    forsideContainer.id = "forsideContainer"
     backgroundImg.id = "forsideBaggrund"
-    packsButton.id = "forsidePacksButton"
-    collectionButton.id = "forsideCollectionButton"
+    buttonDiv.id = "forsideButtonDiv"
 
     // giver knapper event
     packsButton.addEventListener("click", () => {
@@ -102,9 +102,12 @@ function bygForside(){
     collectionButton.innerText = "My Collection"
 
     //FÅ DEM LAVET I HTML
-    app.appendChild(backgroundImg)
-    app.appendChild(packsButton)
-    app.appendChild(collectionButton)
+    
+    forsideContainer.appendChild(backgroundImg)
+    buttonDiv.appendChild(packsButton)
+    buttonDiv.appendChild(collectionButton)
+    forsideContainer.appendChild(buttonDiv)
+    app.appendChild(forsideContainer)
 
 }
 
@@ -116,6 +119,7 @@ function bygPackView(){
     app.innerHTML = ""
     
     // LAV ELEMENTERNE
+    const packViewContainer = document.createElement("section")
     const PackExitKnap = document.createElement("button")
     const coinSpan = document.createElement("span")
     const coinsDisplay = document.createElement("p")
@@ -147,9 +151,10 @@ function bygPackView(){
     
 
     // GIV ELEMENTERNE EN ID
+    packViewContainer.id = "packViewContainer"
     coinSpan.id = "coinSpan"
     packSection.id = "packSection"
-    PackExitKnap.id = "PackExitkanp" 
+    PackExitKnap.id = "packExitknap" 
     
     // GIV DEM INDHOLD
     coinsDisplay.innerText = "Coins:"
@@ -162,7 +167,7 @@ function bygPackView(){
 
 
     //FÅ DEM LAVET I HTML
-    app.appendChild(coinSpan)
+    
     // COIN SPAN
     coinSpan.appendChild(coinsDisplay)
     coinSpan.appendChild(coinsDisplayValue)
@@ -178,10 +183,13 @@ function bygPackView(){
     goldPack.appendChild(goldPackImg)
     specialPack.appendChild(specialPackImg)
     
-    app.appendChild(packSection)
+    packViewContainer.appendChild(coinSpan)
+    packViewContainer.appendChild(packSection)
+    packViewContainer.appendChild(PackExitKnap)
+    app.appendChild(packViewContainer)
 
     //append knapper
-    app.appendChild(PackExitKnap)
+    
 }
 
 function bygMyCollectionView(){
@@ -313,8 +321,6 @@ function bygCardView(cardToView){
     Card.appendChild(CardImg)
     app.appendChild(Card)
     app.appendChild(sellButton)
-
-
 }
 
 
@@ -335,7 +341,7 @@ function silverPackPurchase(CardDrafted){
         console.log("købt silver pack")
         let randomNumber = Math.random() * 100
         let rarity = randomNumber < 50 ? "Normal" : randomNumber < 75 ? "Rare" : randomNumber < 97 ? "Ultra Rare" : randomNumber < 99 ? "Legendary" : "Mythic"
-        let possibleCards = silverPackCards.filter(card => card.rarity === rarity)
+        let possibleCards = Cards.filter(card => card.rarity === rarity)
         let randomCard = Math.floor(Math.random() * possibleCards.length)
         let CardDrafted = possibleCards[randomCard]
         saveCard(CardDrafted)
@@ -352,7 +358,7 @@ function goldPackPurchase(CardDrafted){
         console.log("købt gold pack")
         let randomNumber = Math.random() * 100
         let rarity = randomNumber < 50 ? "Normal" : randomNumber < 60 ? "Rare" : randomNumber < 92 ? "Ultra Rare" : randomNumber < 97 ? "Legendary" : "Mythic"
-        let possibleCards = silverPackCards.filter(card => card.rarity === rarity)
+        let possibleCards = Cards.filter(card => card.rarity === rarity)
         let randomCard = Math.floor(Math.random() * possibleCards.length)
         let CardDrafted = possibleCards[randomCard]
         saveCard(CardDrafted)
@@ -369,7 +375,7 @@ function specialPackPurchase(CardDrafted){
         console.log("købt special pack")
         let randomNumber = Math.random() * 100
         let rarity = randomNumber < 30 ? "Normal" : randomNumber < 50 ? "Rare" : randomNumber < 70 ? "Ultra Rare" : randomNumber < 88 ? "Legendary" : "Mythic"
-        let possibleCards = silverPackCards.filter(card => card.rarity === rarity)
+        let possibleCards = Cards.filter(card => card.rarity === rarity)
         let randomCard = Math.floor(Math.random() * possibleCards.length)
         let CardDrafted = possibleCards[randomCard]
         saveCard(CardDrafted)

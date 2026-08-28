@@ -201,6 +201,7 @@ function bygMyCollectionView(){
     app.innerHTML = ""
     
     // LAV ELEMENTERNE
+    const collectionContainer = document.createElement("section")
     const CollectionExitKnap = document.createElement("button")
     const coinSpan = document.createElement("span")
     const coinsDisplay = document.createElement("p")
@@ -212,11 +213,6 @@ function bygMyCollectionView(){
     const emptyCardPlaceholder = document.createElement("figure")
     const emptyCardPlaceholderImg = document.createElement("img")
 
-    const emptyCardPlaceholder2 = document.createElement("figure")
-    const emptyCardPlaceholderImg2 = document.createElement("img")
-
-    const emptyCardPlaceholder3 = document.createElement("figure")
-    const emptyCardPlaceholderImg3 = document.createElement("img")
     
     /* husk lige at lave sådan at kortene bliver sendt her ind i collectionSection */
 
@@ -229,6 +225,7 @@ function bygMyCollectionView(){
     
 
     // GIV ELEMENTERNE EN ID
+    collectionContainer.id = "collectionContainer"
     coinSpan.id = "coinSpan"
     collectionSection.id = "collectionSection"
     CollectionExitKnap.id = "CollectionExitKnap"
@@ -255,7 +252,7 @@ if (MyCollectionDataBase.length > 0) {
 
         Card.appendChild(CardImg)
         collectionSection.appendChild(Card)
-            
+         
         
     });
         } else {
@@ -263,20 +260,20 @@ if (MyCollectionDataBase.length > 0) {
         }
 
    
-    //FÅ DEM LAVET I HTML
-    app.appendChild(coinSpan)
+    
     // COIN SPAN
     coinSpan.appendChild(coinsDisplay)
     coinSpan.appendChild(coinsDisplayValue)
-
+    //FÅ DEM LAVET I HTML
+    
     // EMPTY PLACEHOLDERS
     collectionSection.appendChild(emptyCardPlaceholder)
     emptyCardPlaceholder.appendChild(emptyCardPlaceholderImg)
 
-
-
-    app.appendChild(collectionSection)
-    app.appendChild(CollectionExitKnap)
+    collectionContainer.appendChild(coinSpan)
+    collectionContainer.appendChild(collectionSection)
+    collectionContainer.appendChild(CollectionExitKnap)
+    app.appendChild(collectionContainer)
 }
 
 function bygPackOpeningView(CardDrafted){
@@ -285,9 +282,11 @@ function bygPackOpeningView(CardDrafted){
     app.innerHTML = ""
 
     // Lav elementerne
+    const packOpeningContainer = document.createElement("section")
     const openingCard = document.createElement("figure")
     const openingCardImg = document.createElement("img")
 
+    packOpeningContainer.id = "packOpeningContainer"
     
     openingCardImg.src = CardDrafted.img
 
@@ -296,7 +295,8 @@ function bygPackOpeningView(CardDrafted){
     })
 
     openingCard.appendChild(openingCardImg)
-    app.appendChild(openingCard)
+    packOpeningContainer.appendChild(openingCard)
+    app.appendChild(packOpeningContainer)
     
 }
 
@@ -305,12 +305,15 @@ function bygCardView(cardToView){
     app.innerHTML = ""
 
     // Lav elementerne
+    const CardViewContainer = document.createElement("section")
     const Card = document.createElement("figure")
     const CardImg = document.createElement("img")
     const sellButton = document.createElement("button")
     
-    CardImg.src = cardToView.img;
+    CardViewContainer.id = "CardViewContainer"
 
+    CardImg.src = cardToView.img;
+    
     // SÆLG KNAP
     sellButton.innerText = "Sælg Kort"
     sellButton.id = "sellBtn"
@@ -319,8 +322,9 @@ function bygCardView(cardToView){
     })
 
     Card.appendChild(CardImg)
-    app.appendChild(Card)
-    app.appendChild(sellButton)
+    CardViewContainer.appendChild(Card)
+    CardViewContainer.appendChild(sellButton)
+    app.appendChild(CardViewContainer)
 }
 
 

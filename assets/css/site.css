@@ -2,22 +2,30 @@
 
 /* PC FIRST */
 
+
+
 /* ROOT */
 :root{
     --bgcolor: rgb(38, 38, 64);
     --coinFontSize: 1.5rem;
 }
 
-/* BODY STYLING */
+/* GLOBAL STYLING */
 body{
     background-color: var(--bgcolor);
 }
-
+#coinSpan{
+    color: white;
+    font-size: var(--coinFontSize);
+    margin: 0;
+}
 
 /* STYLING PÅ APPEN */
 #app{
     background-color: var(--bgcolor);
 }
+
+
 
 /*region FORSIDE */
 #forsideContainer{
@@ -59,13 +67,6 @@ body{
     display: grid;
     height: 100vh;
 }
-
-#coinSpan{
-    color: white;
-    font-size: var(--coinFontSize);
-    margin: 0;
-}
-
 #packSection{
     place-self: center;
     display: grid;
@@ -79,8 +80,55 @@ body{
 }
 
 /* MY COLLECTION SIDE STYLING */
+#collectionContainer{
+    display: grid;
+    min-height: 100vh;
+}
+
+#collectionSection{
+    place-self: center;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(6, auto)
+}
+
+
+
+#CollectionExitKnap{
+    justify-self: center;
+    align-self: center;
+    padding: 20px;
+}
+
 
 /* PACK OPENING STYLING */
+#packOpeningContainer{
+    display: grid;
+    place-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* CARD VIEW STYLING */
+#CardViewContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#sellBtn{
+
+}
+
 
 /* BASIC CARD STYLING */
+ figure {
+    max-height: 200px;
+}
 
+figure img {
+    max-height: 200px;
+}

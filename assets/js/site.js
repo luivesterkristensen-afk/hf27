@@ -390,7 +390,6 @@ function goldPackPurchase(){
     if (myCoins >= 300) {
         myCoins -= 300
         saveCoins()
-        console.log("købt gold pack")
         let randomNumber = Math.random() * 100
         let rarity = randomNumber < 45 ? "Normal" : randomNumber < 75 ? "Rare" : randomNumber < 93 ? "Ultra Rare" : randomNumber < 99.5 ? "Legendary" : "Mythic"
         let possibleCards = Cards.filter(card => card.rarity === rarity)
@@ -407,7 +406,6 @@ function specialPackPurchase(){
     if (myCoins >= 500) {
         myCoins -= 500
         saveCoins()
-        console.log("købt special pack")
         let randomNumber = Math.random() * 100
         let rarity = randomNumber < 15 ? "Normal" : randomNumber < 40 ? "Rare" : randomNumber < 80 ? "Ultra Rare" : randomNumber < 99 ? "Legendary" : "Mythic"
         let possibleCards = Cards.filter(card => card.rarity === rarity)

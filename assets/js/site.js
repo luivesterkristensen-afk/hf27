@@ -1,3 +1,40 @@
+//#region Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+import {
+    getAuth,
+    signInAnonymously
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js"
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDaGh1KZkZ-5biYoFWa6VsZ7nRXXj1N3DA",
+  authDomain: "hf27-71cae.firebaseapp.com",
+  projectId: "hf27-71cae",
+  storageBucket: "hf27-71cae.firebasestorage.app",
+  messagingSenderId: "695000232494",
+  appId: "1:695000232494:web:0ae23ba9f1b2f8d0afe5bf"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+const db = getFirestore(firebaseApp);
+
+// Bruger
+const auth = getAuth(firebaseApp)
+
+let userId
+
+//#endregion
+
+
+
+
 //#region Model
 // ALT MODEL KODE SKAL VÆRE HER, DET VIL SIGE ALT MED DATABASE OG API
 
@@ -108,10 +145,10 @@ function bygForside(){
 
 }
 
-function bygPackView(){
+async function bygPackView(){
     /* Det her er en funktion der bygger hele packview.
     Kald denne funktion for at bygge packview */
-    readCoins()
+    await readCoins()
     
     app.innerHTML = ""
     
@@ -207,11 +244,11 @@ function bygPackView(){
     
 }
 
-function bygMyCollectionView(){
+async function bygMyCollectionView(){
     /* Det her er en funktion der bygger hele My Collection Viewet.
     Kald denne funktion for at bygge My Collection view */
-    readCollection()
-    readCoins()
+    await readCollection()
+    await readCoins()
     
     app.innerHTML = ""
     
@@ -420,42 +457,46 @@ function specialPackPurchase(){
 
 
 //#endregion
-
-function saveCard(CardDrafted){
-    
+// DATABASE FUNKTIONER
+async function saveCard(CardDrafted) {
     MyCollectionDataBase.push(CardDrafted)
 
-    localStorage.setItem(
-        "Collection",
-        JSON.stringify(MyCollectionDataBase)
-    )
+    await saveCollection()
 }
 
-function readCollection(){
-     const myCollectionData = localStorage.getItem("Collection")
+async function readCollection() {
+    const userDocument = await getDoc(
+        doc(db, "users", userId)
+    )
 
-    if (myCollectionData) {
-        MyCollectionDataBase = JSON.parse(myCollectionData)
+    if (userDocument.exists()) {
+        MyCollectionDataBase = userDocument.data().collection || []
     }
 }
 
-function saveCoins(){
-
-    localStorage.setItem(
-        "Coins",
-        JSON.stringify(myCoins)
+async function saveCoins() {
+    await setDoc(
+        doc(db, "users", userId),
+        {
+            coins: myCoins
+        },
+        {
+            merge: true
+        }
     )
 }
 
-function readCoins(){
-    const myCoinData = localStorage.getItem("Coins")
+async function readCoins() {
+    const userDocument = await getDoc(
+        doc(db, "users", userId)
+    )
 
-    if (myCoinData) {
-        myCoins = JSON.parse(myCoinData)
+    if (userDocument.exists()) {
+        myCoins = userDocument.data().coins
     }
 }
 
-function sellCard(cardToSell){
+async function sellCard(cardToSell){
     // finder den den skal slette
     let index = MyCollectionDataBase.indexOf(cardToSell);
     // GIR PENGE
@@ -463,6 +504,7 @@ function sellCard(cardToSell){
     
     // sletter
     MyCollectionDataBase.splice(index, 1);
+    
     saveCoins()
 
     saveCollection()
@@ -470,17 +512,22 @@ function sellCard(cardToSell){
     bygMyCollectionView()
 }
 
-function saveCollection() {
-    localStorage.setItem(
-        "Collection",
-        JSON.stringify(MyCollectionDataBase)
-    );
+async function saveCollection() {
+    await setDoc(
+        doc(db, "users", userId),
+        {
+            collection: MyCollectionDataBase
+        },
+        {
+            merge: true
+        }
+    )
 }
 
-function GiveCoinsReward() {
+async function GiveCoinsReward() {
     myCoins += 500;
 
-    saveCoins();
+    await saveCoins();
 
     const coinElement = document.getElementById("coinsDisplayValue");
 
@@ -493,10 +540,26 @@ function GiveCoinsReward() {
         }, 4000);
     }
 }
+
+async function startApp() {
+    const userCredential = await signInAnonymously(auth)
+
+    userId = userCredential.user.uid
+
+    console.log("Min userId:", userId)
+
+    bygForside()
+}
+
+
 //#endregion
 
+
+
+
+
 /* KØR SIDEN - Under dette stykke skal du køre funktionerne der er nødvendige for siden kører. */
-bygForside()
+startApp()
 setInterval(GiveCoinsReward, 200000)
 
 
@@ -505,8 +568,11 @@ setInterval(GiveCoinsReward, 200000)
 
 
 // TEST FUNCTIONS
-function TestCoins(value1){
+async function TestCoins(value1){
     myCoins = value1;
-    saveCoins()
-    readCoins()
+   await saveCoins()
+   await readCoins()
+
+   return myCoins
 }
+

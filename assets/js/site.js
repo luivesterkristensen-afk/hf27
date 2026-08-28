@@ -309,6 +309,8 @@ function bygCardView(cardToView){
     const Card = document.createElement("figure")
     const CardImg = document.createElement("img")
     const sellButton = document.createElement("button")
+    const backknap = document.createElement("button")
+
     
     CardViewContainer.id = "CardViewContainer"
 
@@ -321,9 +323,13 @@ function bygCardView(cardToView){
         sellCard(cardToView)
     })
 
+
+
+
     Card.appendChild(CardImg)
     CardViewContainer.appendChild(Card)
     CardViewContainer.appendChild(sellButton)
+    CardViewContainer.appendChild(backknap)
     app.appendChild(CardViewContainer)
 }
 

@@ -300,6 +300,7 @@ function bygCardView(cardToView){
     const Card = document.createElement("figure")
     const CardImg = document.createElement("img")
     const sellButton = document.createElement("button")
+
     
     CardImg.src = cardToView.img;
 
@@ -309,6 +310,9 @@ function bygCardView(cardToView){
     sellButton.addEventListener("click", ()=>{
         sellCard(cardToView)
     })
+
+
+
 
     Card.appendChild(CardImg)
     app.appendChild(Card)

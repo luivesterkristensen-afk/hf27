@@ -256,6 +256,7 @@ if (MyCollectionDataBase.length > 0) {
     });
         } else {
             emptyCardPlaceholderImg.src = "assets/img/Mysterie.svg"
+            collectionSection.appendChild(emptyCardPlaceholder)
         }
 
    
@@ -266,7 +267,7 @@ if (MyCollectionDataBase.length > 0) {
     //FÅ DEM LAVET I HTML
     
     // EMPTY PLACEHOLDERS
-    collectionSection.appendChild(emptyCardPlaceholder)
+    
     emptyCardPlaceholder.appendChild(emptyCardPlaceholderImg)
 
     collectionContainer.appendChild(coinSpan)

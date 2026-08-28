@@ -14,10 +14,25 @@
 body{
     background-color: var(--bgcolor);
 }
+
 #coinSpan{
     color: white;
     font-size: var(--coinFontSize);
     margin: 0;
+}
+
+/* BASIC CARD STYLING */
+ figure {
+    width: 150px;
+    height: 150px;
+    
+}
+
+figure img {
+    width: 100%;
+    height: 100%;
+    
+    
 }
 
 /* STYLING PÅ APPEN */
@@ -127,11 +142,3 @@ body{
 }
 
 
-/* BASIC CARD STYLING */
- figure {
-    max-height: 200px;
-}
-
-figure img {
-    max-height: 200px;
-}

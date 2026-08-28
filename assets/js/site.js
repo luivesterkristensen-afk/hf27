@@ -308,9 +308,18 @@ function bygCardView(cardToView){
     const Card = document.createElement("figure")
     const CardImg = document.createElement("img")
     const sellButton = document.createElement("button")
+    const backknap = document.createElement("button")
 
     
     CardImg.src = cardToView.img;
+
+    // Back Knap
+    backknap.innerText = "Tilbage"
+    backknap.id ="backknap"
+    backknap.addEventListener("click", ()=> {
+        bygMyCollectionView()
+
+    })
 
     // SÆLG KNAP
     sellButton.innerText = "Sælg Kort"
@@ -325,6 +334,7 @@ function bygCardView(cardToView){
     Card.appendChild(CardImg)
     app.appendChild(Card)
     app.appendChild(sellButton)
+    app.appendChild(backknap)
 }
 
 

@@ -301,7 +301,7 @@ function bygPackOpeningView(CardDrafted){
 }
 
 function bygCardView(cardToView){
-
+    // DET HER ER FUNKTIONEN DER GØR AT MAN KAN FOKUSERER PÅ ET KORT I KOLLEKTIONEN
     app.innerHTML = ""
 
     // Lav elementerne

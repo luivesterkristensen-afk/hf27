@@ -117,6 +117,7 @@ function bygPackView(){
     
     // LAV ELEMENTERNE
     const packViewContainer = document.createElement("section")
+    const packViewHeader = document.createElement("h1")
     const PackExitKnap = document.createElement("button")
     const coinSpan = document.createElement("span")
     const coinsDisplay = document.createElement("p")
@@ -127,12 +128,15 @@ function bygPackView(){
     // SØLV PAKKEN
     const silverPack = document.createElement("figure")
     const silverPackImg = document.createElement("img")
+    const silverPackPrice = document.createElement("figcaption")
     // GULD PAKKEN
     const goldPack = document.createElement("figure")
     const goldPackImg = document.createElement("img")
+    const goldPackPrice = document.createElement("figcaption")
     // SPECIAL PAKKEN
     const specialPack = document.createElement("figure")
     const specialPackImg = document.createElement("img")
+    const specialPackPrice = document.createElement("figcaption")
     /* Note: Husk at lave eventlisteners til pakkerne så de kan købes. */
 
     //Byg en eventlistener til knapper
@@ -155,6 +159,7 @@ function bygPackView(){
     PackExitKnap.id = "packExitknap" 
     
     // GIV DEM INDHOLD
+    packViewHeader.innerText = "Packs"
     coinsDisplay.innerText = "Coins:"
     coinsDisplayValue.innerText = myCoins
     PackExitKnap.innerText = "Forside"
@@ -162,6 +167,13 @@ function bygPackView(){
     silverPackImg.src = "assets/img/silverpack.svg"
     goldPackImg.src = "assets/img/goldpack.svg"
     specialPackImg.src = "assets/img/specialpack.svg"
+
+    // GIV PAKKERNES PRISSKILT INDHOLD
+    silverPackPrice.innerText = "Pris: 100"
+    goldPackPrice.innerText = "Pris: 300"
+    specialPackPrice.innerText = "Pris: 500"
+    
+
 
 
     //FÅ DEM LAVET I HTML
@@ -178,10 +190,14 @@ function bygPackView(){
 
     //Packs
     silverPack.appendChild(silverPackImg)
+    silverPack.appendChild(silverPackPrice)
     goldPack.appendChild(goldPackImg)
+    goldPack.appendChild(goldPackPrice)
     specialPack.appendChild(specialPackImg)
+    specialPack.appendChild(specialPackPrice)
     
     packViewContainer.appendChild(coinSpan)
+    packViewContainer.appendChild(packViewHeader)
     packViewContainer.appendChild(packSection)
     packViewContainer.appendChild(PackExitKnap)
     app.appendChild(packViewContainer)
@@ -201,6 +217,7 @@ function bygMyCollectionView(){
     
     // LAV ELEMENTERNE
     const collectionContainer = document.createElement("section")
+    const collectionHeader = document.createElement("h1")
     const CollectionExitKnap = document.createElement("button")
     const coinSpan = document.createElement("span")
     const coinsDisplay = document.createElement("p")
@@ -225,6 +242,7 @@ function bygMyCollectionView(){
 
     // GIV ELEMENTERNE EN ID
     collectionContainer.id = "collectionContainer"
+    collectionHeader.innerText = "My Collection"
     coinSpan.id = "coinSpan"
     collectionSection.id = "collectionSection"
     CollectionExitKnap.id = "CollectionExitKnap"
@@ -269,8 +287,8 @@ if (MyCollectionDataBase.length > 0) {
     // EMPTY PLACEHOLDERS
     
     emptyCardPlaceholder.appendChild(emptyCardPlaceholderImg)
-
     collectionContainer.appendChild(coinSpan)
+    collectionContainer.appendChild(collectionHeader)
     collectionContainer.appendChild(collectionSection)
     collectionContainer.appendChild(CollectionExitKnap)
     app.appendChild(collectionContainer)
@@ -309,6 +327,7 @@ function bygCardView(cardToView){
     const CardViewBtns = document.createElement("div")
     const Card = document.createElement("figure")
     const CardImg = document.createElement("img")
+    const CardValue = document.createElement("p")
     const sellButton = document.createElement("button")
     const backknap = document.createElement("button")
 
@@ -316,6 +335,8 @@ function bygCardView(cardToView){
     CardViewContainer.id = "CardViewContainer"
 
     CardImg.src = cardToView.img;
+
+    CardValue.innerText = "Værdi:" + cardToView.val;
     
     // SÆLG KNAP
     sellButton.innerText = "Sælg Kort"
@@ -331,6 +352,7 @@ function bygCardView(cardToView){
 
     Card.appendChild(CardImg)
     CardViewContainer.appendChild(Card)
+    CardViewBtns.appendChild(CardValue)
     CardViewBtns.appendChild(sellButton)
     CardViewBtns.appendChild(backknap)
     CardViewContainer.appendChild(CardViewBtns)

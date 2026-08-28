@@ -306,6 +306,7 @@ function bygCardView(cardToView){
 
     // Lav elementerne
     const CardViewContainer = document.createElement("section")
+    const CardViewBtns = document.createElement("div")
     const Card = document.createElement("figure")
     const CardImg = document.createElement("img")
     const sellButton = document.createElement("button")
@@ -323,13 +324,16 @@ function bygCardView(cardToView){
         sellCard(cardToView)
     })
 
+    // TILBAGE KNAP
+    backknap.addEventListener("click", bygMyCollectionView)
 
-
+    backknap.innerText = "Tilbage"
 
     Card.appendChild(CardImg)
     CardViewContainer.appendChild(Card)
-    CardViewContainer.appendChild(sellButton)
-    CardViewContainer.appendChild(backknap)
+    CardViewBtns.appendChild(sellButton)
+    CardViewBtns.appendChild(backknap)
+    CardViewContainer.appendChild(CardViewBtns)
     app.appendChild(CardViewContainer)
 }
 

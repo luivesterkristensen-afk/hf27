@@ -119,6 +119,12 @@ body{
     min-height: 100vh;
 }
 
+#CardViewContainer > div{
+        display: flex;
+        gap: 10px;
+    
+}
+
 #sellBtn{
 
 }

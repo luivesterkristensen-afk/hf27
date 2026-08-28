@@ -57,9 +57,6 @@ let Cards = [
     }
 ]
 
-
-
-
 //#endregion
 
 
@@ -153,6 +150,7 @@ function bygPackView(){
     // GIV ELEMENTERNE EN ID
     packViewContainer.id = "packViewContainer"
     coinSpan.id = "coinSpan"
+    coinsDisplayValue.id = "coinsDisplayValue"
     packSection.id = "packSection"
     PackExitKnap.id = "packExitknap" 
     
@@ -189,6 +187,7 @@ function bygPackView(){
     app.appendChild(packViewContainer)
 
     //append knapper
+
     
 }
 
@@ -348,13 +347,12 @@ function bygCardView(cardToView){
 // PURCHASE FUNKTIONER SØRGER FOR AT MAN KAN KØBE PACKS OG VÆLGER ET RANDOM KORT
 
 //#region Purchase
-function silverPackPurchase(CardDrafted){
+function silverPackPurchase(){
     if (myCoins >= 100) {
         myCoins -= 100
         saveCoins()
-        console.log("købt silver pack")
         let randomNumber = Math.random() * 100
-        let rarity = randomNumber < 50 ? "Normal" : randomNumber < 75 ? "Rare" : randomNumber < 97 ? "Ultra Rare" : randomNumber < 99 ? "Legendary" : "Mythic"
+        let rarity = randomNumber < 65 ? "Normal" : randomNumber < 82 ? "Rare" : randomNumber < 97 ? "Ultra Rare" : randomNumber < 99.67 ? "Legendary" : "Mythic"
         let possibleCards = Cards.filter(card => card.rarity === rarity)
         let randomCard = Math.floor(Math.random() * possibleCards.length)
         let CardDrafted = possibleCards[randomCard]
@@ -365,13 +363,13 @@ function silverPackPurchase(CardDrafted){
     }
 }
 
-function goldPackPurchase(CardDrafted){
+function goldPackPurchase(){
     if (myCoins >= 300) {
         myCoins -= 300
         saveCoins()
         console.log("købt gold pack")
         let randomNumber = Math.random() * 100
-        let rarity = randomNumber < 50 ? "Normal" : randomNumber < 60 ? "Rare" : randomNumber < 92 ? "Ultra Rare" : randomNumber < 97 ? "Legendary" : "Mythic"
+        let rarity = randomNumber < 45 ? "Normal" : randomNumber < 75 ? "Rare" : randomNumber < 93 ? "Ultra Rare" : randomNumber < 99.5 ? "Legendary" : "Mythic"
         let possibleCards = Cards.filter(card => card.rarity === rarity)
         let randomCard = Math.floor(Math.random() * possibleCards.length)
         let CardDrafted = possibleCards[randomCard]
@@ -382,13 +380,13 @@ function goldPackPurchase(CardDrafted){
     }
 }
 
-function specialPackPurchase(CardDrafted){
+function specialPackPurchase(){
     if (myCoins >= 500) {
         myCoins -= 500
         saveCoins()
         console.log("købt special pack")
         let randomNumber = Math.random() * 100
-        let rarity = randomNumber < 30 ? "Normal" : randomNumber < 50 ? "Rare" : randomNumber < 70 ? "Ultra Rare" : randomNumber < 88 ? "Legendary" : "Mythic"
+        let rarity = randomNumber < 15 ? "Normal" : randomNumber < 40 ? "Rare" : randomNumber < 80 ? "Ultra Rare" : randomNumber < 99 ? "Legendary" : "Mythic"
         let possibleCards = Cards.filter(card => card.rarity === rarity)
         let randomCard = Math.floor(Math.random() * possibleCards.length)
         let CardDrafted = possibleCards[randomCard]
@@ -458,9 +456,36 @@ function saveCollection() {
     );
 }
 
+function GiveCoinsReward() {
+    myCoins += 500;
+
+    saveCoins();
+
+    const coinElement = document.getElementById("coinsDisplayValue");
+
+    if (coinElement) {
+        coinElement.innerText = "+500!";
+        console.log("viser +500 nu");
+
+        setTimeout(() => {
+            coinElement.innerText = myCoins;
+        }, 4000);
+    }
+}
 //#endregion
 
-/* KØR SIDEN - Under dette stykke skal du køre funktionerne der er nødvendige for siden kører.
-
-*/
+/* KØR SIDEN - Under dette stykke skal du køre funktionerne der er nødvendige for siden kører. */
 bygForside()
+setInterval(GiveCoinsReward, 200000)
+
+
+
+
+
+
+// TEST FUNCTIONS
+function TestCoins(value1){
+    myCoins = value1;
+    saveCoins()
+    readCoins()
+}
